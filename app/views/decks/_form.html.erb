@@ -1,0 +1,21 @@
+<style>
+    div.field_with_errors { display: inline; }
+</style>
+
+<%= form_for @deck do |f| %>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %><br>
+    <%= f.label :cards %><br>
+    <div id='cards'>
+        <%= f.fields_for :cards do |card| %>
+            <%= render 'card_fields', f: card %>
+        <% end %>
+        <%= link_to_add_association 'Add Card', f, :cards %>
+    </div>
+    <ul>
+        <% @deck.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+    </ul>
+    <%= f.submit %>
+<% end %>
