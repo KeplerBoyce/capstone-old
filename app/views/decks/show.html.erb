@@ -1,5 +1,5 @@
 <script>
-    const cardList = [];
+    var cardList = [];
     <% @deck.cards.each do |card| %>
         cardList.push({
             front: '<%= raw card.front %>',
@@ -27,8 +27,8 @@
 
 <h1><%= @deck.title %></h1>
 
-<p>
-    <% @deck.cards.each_with_index do |card, i| %>
-        <button onclick="flip('<%= i %>')" id='card_<%= i %>'><%= card.front %></button><br>
-    <% end %>
-</p>
+<% @deck.cards.each_with_index do |card, i| %>
+    <button onclick="flip('<%= i %>')" id='card_<%= i %>'><%= card.front %></button><br>
+<% end %>
+
+<%= link_to "Edit Deck", edit_deck_path(@deck) %>

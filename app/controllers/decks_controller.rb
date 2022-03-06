@@ -22,7 +22,7 @@ class DecksController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-
+  
   def edit
     @deck = Deck.find(params[:id])
   end
@@ -39,6 +39,6 @@ class DecksController < ApplicationController
 
   private
     def deck_params
-      params.require(:deck).permit(:title, {cards_attributes: [:front, :back, :_destroy]})
+      params.require(:deck).permit(:title, {cards_attributes: [:front, :back, :_destroy, :id]})
     end
 end

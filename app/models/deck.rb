@@ -1,6 +1,6 @@
 class Deck < ApplicationRecord
     has_many :cards
-    accepts_nested_attributes_for :cards
+    accepts_nested_attributes_for :cards, allow_destroy: true
 
     def cards_atributes=(cards_attributes)
         cards_attributes.each_with_index do |card_attributes, i|

@@ -1,10 +1,11 @@
 <style>
     div.field_with_errors { display: inline; }
+    div { margin-bottom: 4px; }
 </style>
 
 <%= form_for @deck do |f| %>
     <%= f.label :title %><br>
-    <%= f.text_field :title %><br>
+    <%= f.text_field :title %><br><br>
     <%= f.label :cards %><br>
     <div id='cards'>
         <%= f.fields_for :cards do |card| %>
