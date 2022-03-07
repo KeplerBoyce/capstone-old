@@ -1,4 +1,10 @@
+<style>
+    li { line-height: 0.5; }
+</style>
+
 <h1>Decks</h1>
+
+<%= link_to '<button>New Deck</button>'.html_safe, new_deck_path %>
 
 <% @decks.each do |deck| %>
     <ul>

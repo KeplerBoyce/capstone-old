@@ -17,7 +17,7 @@
 </script>
 
 <style>
-    button {
+    button.card {
         width: 120px;
         height: 80px;
         margin-bottom: 5px;
@@ -28,7 +28,9 @@
 <h1><%= @deck.title %></h1>
 
 <% @deck.cards.each_with_index do |card, i| %>
-    <button onclick="flip('<%= i %>')" id='card_<%= i %>'><%= card.front %></button><br>
+    <button onclick="flip('<%= i %>')" class='card' id='card_<%= i %>'><%= card.front %></button><br>
 <% end %>
 
-<%= link_to "Edit Deck", edit_deck_path(@deck) %>
+<%= link_to '<button>Edit Deck</button>'.html_safe, edit_deck_path(@deck) %><br>
+<%= link_to '<button>Delete Deck</button>'.html_safe, deck_path(@deck), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %><br>
+<%= link_to '<button>Back</button>'.html_safe, root_path %>

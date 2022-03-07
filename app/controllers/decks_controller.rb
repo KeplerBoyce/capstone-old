@@ -37,6 +37,17 @@ class DecksController < ApplicationController
     end
   end
 
+  def destroy
+    @deck = Deck.find(params[:id])
+    @deck.destroy
+
+    redirect_to root_path, status: :see_other
+  end
+
+  def back
+    redirect_to root_path
+  end
+
   private
     def deck_params
       params.require(:deck).permit(:title, {cards_attributes: [:front, :back, :_destroy, :id]})

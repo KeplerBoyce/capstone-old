@@ -11,7 +11,7 @@
         <%= f.fields_for :cards do |card| %>
             <%= render 'card_fields', f: card %>
         <% end %>
-        <%= link_to_add_association 'Add Card', f, :cards %>
+        <%= link_to_add_association '<button>Add Card</button>'.html_safe, f, :cards %>
     </div>
     <ul>
         <% @deck.errors.full_messages.each do |msg| %>
@@ -19,4 +19,4 @@
         <% end %>
     </ul>
     <%= f.submit %>
-<% end %>
+<% end %><br>
