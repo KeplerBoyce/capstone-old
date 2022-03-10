@@ -6,6 +6,7 @@
             back: '<%= raw card.back %>'
         });
     <% end %>
+
     function flip(num) {
         var elem = document.getElementById('card_' + num);
         if (cardList[num].front === elem.innerHTML) {
@@ -27,10 +28,14 @@
 
 <h1><%= @deck.title %></h1>
 
+<h3>Created by <%= @deck.creator %></h3>
+
 <% @deck.cards.each_with_index do |card, i| %>
     <button onclick="flip('<%= i %>')" class='card' id='card_<%= i %>'><%= card.front %></button><br>
 <% end %>
 
-<%= link_to '<button>Edit Deck</button>'.html_safe, edit_deck_path(@deck) %><br>
-<%= link_to '<button>Delete Deck</button>'.html_safe, deck_path(@deck), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %><br>
+<% if logged_in? and current_user.id == @deck.user_id %>
+    <%= link_to '<button>Edit Deck</button>'.html_safe, edit_deck_path(@deck) %><br>
+    <%= link_to '<button>Delete Deck</button>'.html_safe, deck_path(@deck), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %><br>
+<% end %>
 <%= link_to '<button>Back</button>'.html_safe, root_path %>

@@ -1,13 +1,38 @@
 <style>
-    li { line-height: 0.5; }
+    table, th, td {
+        border: 1px solid;
+        border-collapse: collapse;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 </style>
+
+<% if logged_in? %>
+    Logged in as <b><%= current_user.username %></b>
+    <%= link_to '<button>Log Out</button>'.html_safe, 'logout' %>
+<% else %>
+    <%= link_to '<button>Log In</button>'.html_safe, '/login' %>
+<% end %>
 
 <h1>Decks</h1>
 
-<%= link_to '<button>New Deck</button>'.html_safe, new_deck_path %>
-
-<% @decks.each do |deck| %>
-    <ul>
-        <li><%= link_to deck.title, deck %></li>
-    </ul>
+<% if logged_in? %>
+    <%= link_to '<button>New Deck</button>'.html_safe, new_deck_path %>
+<% else %>
+    You must be logged in to create a deck
 <% end %>
+
+<table>
+    <tr>
+        <th style="width:100px">Deck</th>
+        <th style="width:100px">Creator</th>
+    </tr>
+    <% @decks.each do |deck| %>
+        <tr>
+            <td><%= link_to deck.title, deck %></td>
+            <td><%= deck.creator %></td>
+        </tr>
+    <% end %>
+</table>

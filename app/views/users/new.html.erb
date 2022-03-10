@@ -1,0 +1,21 @@
+<style>
+    div.field_with_errors { display: inline; }
+    div { margin-bottom: 4px; }
+</style>
+
+<h1>New User</h1>
+
+<%= link_to '<button>Log Into an Existing Account</button>'.html_safe, '/login' %>
+
+<%= form_for @user do |f| %>
+    Username: <%= f.text_field :username %><br>
+    Password: <%= f.password_field :password %><br>
+    <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+    </ul>
+    <%= f.submit 'Create Account' %>
+<% end %>
+
+<%= link_to '<button>Back</button>'.html_safe, root_path %>

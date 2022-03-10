@@ -1,0 +1,9 @@
+<div>
+    <h2>Log In</h2>
+    <%= link_to '<button>New Account</button>'.html_safe, 'users/new' %>
+    <%= form_tag '/login' do %>
+        Username: <%= text_field_tag :username %><br>
+        Password: <%= password_field_tag :password %><br>
+        <%= submit_tag 'Log In' %>
+    <% end %>
+</div>

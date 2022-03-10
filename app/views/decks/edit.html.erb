@@ -1,5 +1,9 @@
 <h1>Edit Deck</h1>
 
-<%= render 'form', deck: @deck %>
+<% if logged_in? and current_user.id == @deck.user_id %>
+    <%= render 'form', deck: @deck %>
+<% else %>
+    You do not have permission to edit this deck<br>
+<% end %>
 
 <%= link_to '<button>Cancel</button>'.html_safe, deck_path(@deck) %>

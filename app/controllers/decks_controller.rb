@@ -1,3 +1,5 @@
+include ApplicationHelper
+
 class DecksController < ApplicationController
 
   def index
@@ -14,7 +16,9 @@ class DecksController < ApplicationController
   end
 
   def create
-    @deck = Deck.new(deck_params)
+    @deck = Deck.new(deck_params
+      .merge(user_id: current_user.id)
+      .merge(creator: current_user.username))
 
     if @deck.save
       redirect_to @deck
@@ -49,7 +53,8 @@ class DecksController < ApplicationController
   end
 
   private
-    def deck_params
-      params.require(:deck).permit(:title, {cards_attributes: [:front, :back, :_destroy, :id]})
-    end
+  
+  def deck_params
+    params.require(:deck).permit(:title, :user_id, {cards_attributes: [:front, :back, :_destroy, :id]})
+  end
 end
