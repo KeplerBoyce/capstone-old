@@ -1,0 +1,28 @@
+<script>
+    var cardList = [];
+    <% @deck.cards.each do |card| %>
+        cardList.push({
+            front: '<%= raw card.front %>',
+            back: '<%= raw card.back %>'
+        });
+    <% end %>
+
+    function flip(num) {
+        var elem = document.getElementById('card_' + num);
+        if (cardList[num].front === elem.innerHTML) {
+            elem.innerHTML = cardList[num].back;
+        } else {
+            elem.innerHTML = cardList[num].front;
+        }
+    }
+</script>
+
+<h1><%= @deck.title %></h1>
+
+<h3>Created by <%= @deck.creator %></h3>
+
+<% @deck.cards.each_with_index do |card, i| %>
+    <button onclick="flip('<%= i %>')" class='card' id='card_<%= i %>'><%= card.front %></button><br>
+<% end %>
+
+<%= link_to '<button>Back</button>'.html_safe, deck_path(@deck) %>

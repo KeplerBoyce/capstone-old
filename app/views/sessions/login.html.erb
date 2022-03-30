@@ -1,9 +1,17 @@
 <div>
-    <h2>Log In</h2>
-    <%= link_to '<button>New Account</button>'.html_safe, 'users/new' %>
+    <h1>Log In</h1>
+    <%= link_to '<button>Create New Account</button>'.html_safe, 'users/new' %>
+    
     <%= form_tag '/login' do %>
-        Username: <%= text_field_tag :username %><br>
-        Password: <%= password_field_tag :password %><br>
+
+        <h3>Username</h3>
+        <%= text_field_tag :username %><br><br>
+
+        <h3>Password</h3>
+        <%= password_field_tag :password %><br><br>
+
         <%= submit_tag 'Log In' %>
+        <%= link_to '<button>Cancel</button>'.html_safe, root_path %>
+
     <% end %>
 </div>

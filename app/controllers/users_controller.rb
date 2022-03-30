@@ -6,8 +6,6 @@ class UsersController < ApplicationController
 
     def new
         @user = User.new
-        @user.decks.build
-        @user.saved_decks.build
     end
 
     def create
@@ -22,11 +20,12 @@ class UsersController < ApplicationController
 
     def show
         @user = User.find(params[:id])
+        puts @user.saves
     end
 
     private
     
     def user_params
-        params.require(:user).permit(:username, :password, {decks_attributes: [:title, :id]}, {saved_decks_attributes: [:title, :id]})
+        params.require(:user).permit(:username, :password, :password_confirmation, :decks, :saves)
     end
 end

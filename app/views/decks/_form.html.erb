@@ -1,22 +1,27 @@
-<style>
-    div.field_with_errors { display: inline; }
-    div { margin-bottom: 4px; }
-</style>
-
 <%= form_for @deck do |f| %>
-    <%= f.label :title %><br>
+
+    <h3>Title</h3>
     <%= f.text_field :title %><br><br>
-    <%= f.label :cards %><br>
+
+    <h3>Description</h3>
+    <%= f.text_field :description %><br><br>
+
+    <h3>Cards</h3>
     <div id='cards'>
         <%= f.fields_for :cards do |card| %>
             <%= render 'card_fields', f: card %>
         <% end %>
         <%= link_to_add_association '<button>Add Card</button>'.html_safe, f, :cards %>
     </div>
-    <ul>
-        <% @deck.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-        <% end %>
-    </ul>
+    <br>
+
+    <% if @deck.errors.present? %>
+        <div id='error-list'>
+            <% @deck.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </div>
+    <% end %>
+
     <%= f.submit %>
-<% end %><br>
+<% end %>

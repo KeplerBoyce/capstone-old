@@ -1,0 +1,14 @@
+<h1><%= @user.username %></h1>
+
+<h3>Created Decks</h3>
+
+<% @user.decks.each do |deck| %>
+    <li><%= link_to deck.title, deck %></li>
+<% end %>
+
+<h3>Saved Decks</h3>
+
+<% @user.saves.each do |save| %>
+    <% deck = Deck.find_by_id(save.deck_id) %>
+    <li><%= link_to deck.title, deck %></li>
+<% end %>

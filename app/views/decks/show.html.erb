@@ -1,41 +1,54 @@
-<script>
-    var cardList = [];
-    <% @deck.cards.each do |card| %>
-        cardList.push({
-            front: '<%= raw card.front %>',
-            back: '<%= raw card.back %>'
-        });
-    <% end %>
-
-    function flip(num) {
-        var elem = document.getElementById('card_' + num);
-        if (cardList[num].front === elem.innerHTML) {
-            elem.innerHTML = cardList[num].back;
-        } else {
-            elem.innerHTML = cardList[num].front;
-        }
-    }
-</script>
-
-<style>
-    button.card {
-        width: 120px;
-        height: 80px;
-        margin-bottom: 5px;
-        font-size: 20px;
-    }
-</style>
-
 <h1><%= @deck.title %></h1>
 
-<h3>Created by <%= @deck.creator %></h3>
-
-<% @deck.cards.each_with_index do |card, i| %>
-    <button onclick="flip('<%= i %>')" class='card' id='card_<%= i %>'><%= card.front %></button><br>
+<% if @deck.cards.length == 1 %>
+    <div>1 card</div>
+<% else %>
+    <div><%= @deck.cards.length %> cards</div>
 <% end %>
+
+<h3>Created by <%= link_to @deck.creator, User.find_by_username(@deck.creator) %></h3>
+
+<div id='description'><%= @deck.description %></div><br>
+
+<%= link_to '<button>Back To All Decks</button>'.html_safe, root_path %><br>
+
+<% if logged_in? %>
+    <% in_user_saves = false %>
+    <% current_user.saves.each do |save| %>
+        <% if save.deck_id == @deck.id %>
+            <% in_user_saves = true %>
+        <% end %>
+    <% end %>
+    <% if in_user_saves %>
+        <%= link_to '<button>Unsave Deck</button>'.html_safe, deck_unsave_path(@deck) %>
+    <% else %>
+        <%= link_to '<button>Save Deck</button>'.html_safe, deck_save_path(@deck) %>
+    <% end %>
+<% else %>
+    <div class='greyed-out'>You need to be logged in to save decks.</div>
+<% end %>
+
+<%= link_to '<button>Study Cards</button>'.html_safe, deck_study_path(@deck) %><br>
 
 <% if logged_in? and current_user.id == @deck.user_id %>
-    <%= link_to '<button>Edit Deck</button>'.html_safe, edit_deck_path(@deck) %><br>
-    <%= link_to '<button>Delete Deck</button>'.html_safe, deck_path(@deck), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %><br>
+    <br>
+    <%= link_to '<button>Edit Deck</button>'.html_safe, edit_deck_path(@deck) %>
+    <%= link_to "<button class='delete'>Delete Deck</button>".html_safe, deck_path(@deck),
+        data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %><br>
 <% end %>
-<%= link_to '<button>Back</button>'.html_safe, root_path %>
+
+<h3>Card list:</h3>
+<table>
+    <tr>
+        <th style='width: 40px; border: none'></th>
+        <th style='width:150px'>Front</th>
+        <th style='width:150px'>Back</th>
+    </tr>
+    <% @deck.cards.each_with_index do |card, i| %>
+        <tr>
+            <td style='text-align: center'><%= i + 1 %></td>
+            <td><%= card.front %></td>
+            <td><%= card.back %></td>
+        </tr>
+    <% end %>
+</table>

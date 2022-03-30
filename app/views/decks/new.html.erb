@@ -1,5 +1,9 @@
 <h1>New Deck</h1>
 
-<%= render 'form', deck: @deck %>
+<% if logged_in? %>
+    <%= render 'form', deck: @deck %>
+<% else %>
+    You must be logged in to create a new deck.<br><br>
+<% end %>
 
 <%= link_to '<button>Cancel</button>'.html_safe, root_path %>
