@@ -22,7 +22,8 @@ class DecksController < ApplicationController
   def create
     @deck = Deck.new(deck_params
       .merge(user_id: current_user.id)
-      .merge(creator: current_user.username))
+      .merge(creator: current_user.username)
+      .merge(saves: 0))
 
     if @deck.save
       redirect_to @deck
@@ -54,22 +55,26 @@ class DecksController < ApplicationController
 
   def save
     @deck = Deck.find(params[:deck_id])
+    @deck.saves += 1
+    @deck.save
     current_user.saves.build({deck_id: @deck.id})
     current_user.save
-    redirect_to current_user
+    redirect_to @deck
   end
 
   def unsave
     @deck = Deck.find(params[:deck_id])
+    @deck.saves -= 1
+    @deck.save
     current_user.saves.destroy(Save.find_by(deck_id: @deck.id))
     current_user.save
-    redirect_to current_user
+    redirect_to @deck
   end
 
   private
   
   def deck_params
     params.require(:deck).permit(:title, :description, :user_id,
-      {cards_attributes: [:front, :back, :_destroy, :id]})
+      :saves, {cards_attributes: [:front, :back, :_destroy, :id]})
   end
 end

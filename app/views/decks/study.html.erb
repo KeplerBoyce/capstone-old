@@ -19,7 +19,7 @@
 
 <h1><%= @deck.title %></h1>
 
-<h3>Created by <%= @deck.creator %></h3>
+<h3>Created by <%= link_to @deck.creator, User.find_by_username(@deck.creator) %></h3>
 
 <% @deck.cards.each_with_index do |card, i| %>
     <button onclick="flip('<%= i %>')" class='card' id='card_<%= i %>'><%= card.front %></button><br>

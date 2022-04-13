@@ -1,0 +1,45 @@
+<style>
+    body {
+        display: grid;
+        grid-template-areas: 's m';
+        grid-template-columns: min-content auto;
+    }
+    div.main {
+        grid-area: 'm';
+    }
+    div.sidebar {
+        width: min-content;
+        height: min-content;
+        background-color: #d5d9db;
+        margin: 150px 16px 0 0;
+        border-radius: 12px;
+        grid-area: 's';
+    }
+    button.sidebar-item {
+        width: 100%;
+        padding: 10px 16px;
+        margin: 0;
+        border-radius: 12px;
+        color: #4b6a7e;
+        background-color: #d5d9db;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: left;
+        transition-duration: 150ms;
+    }
+    button.sidebar-item:hover {
+        cursor: pointer;
+        color: #1f3847;
+        background-color: #c0c6c9;
+        transition-duration: 150ms;
+    }
+</style>
+
+<div class='sidebar'>
+    <%= link_to "<button class='sidebar-item'>Top</button>".html_safe, root_path %>
+    <%= link_to "<button class='sidebar-item'>Newest</button>".html_safe, root_path %>
+    <% if logged_in? %>
+        <%= link_to "<button class='sidebar-item'>Saved</button>".html_safe, user_saved_path(current_user) %>
+        <%= link_to "<button class='sidebar-item'>Created</button>".html_safe, user_created_path(current_user) %>
+    <% end %>
+</div>

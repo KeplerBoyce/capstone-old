@@ -1,0 +1,19 @@
+<% in_user_saves = false %>
+<% current_user.saves.each do |save| %>
+    <% if save.deck_id == @deck.id %>
+        <% in_user_saves = true %>
+    <% end %>
+<% end %>
+<% if in_user_saves %>
+    <%= link_to '<button>Unsave Deck</button>'.html_safe, deck_unsave_path(@deck) %>
+<% else %>
+    <%= link_to '<button>Save Deck</button>'.html_safe, deck_save_path(@deck) %>
+<% end %>
+
+<%= link_to '<button>Study Cards</button>'.html_safe, deck_study_path(@deck) %>
+
+<% if current_user.id == @deck.user_id %>
+    <%= link_to '<button>Edit Deck</button>'.html_safe, edit_deck_path(@deck) %>
+    <%= link_to "<button class='delete'>Delete Deck</button>".html_safe, deck_path(@deck),
+        data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %><br>
+<% end %>

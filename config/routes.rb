@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
 
-  resources :users
+  resources :users do
+    get '/saved', to: 'users#saved'
+    get '/created', to: 'users#created'
+  end
 
   resources :decks do
     get '/study', to: 'decks#study'

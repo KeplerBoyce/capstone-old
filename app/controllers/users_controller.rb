@@ -23,6 +23,14 @@ class UsersController < ApplicationController
         puts @user.saves
     end
 
+    def saved
+        @user = User.find(params[:user_id])
+    end
+
+    def created
+        @user = User.find(params[:user_id])
+    end
+
     private
     
     def user_params

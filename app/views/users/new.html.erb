@@ -7,7 +7,7 @@
 
 <%= link_to '<button>Log Into an Existing Account</button>'.html_safe, '/login' %>
 
-<%= form_for @user do |f| %>
+<%= form_for @user, html: {autocomplete: 'off'} do |f| %>
     Username: <%= f.text_field :username %><br>
     Password: <%= f.password_field :password %><br>
     <ul>

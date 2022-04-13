@@ -1,0 +1,23 @@
+<%= render 'decks/sidebar' %>
+
+<div class='main'>
+    <h1><%= link_to @user.username, @user %>'s saved decks</h1>
+
+    <table>
+        <tr>
+            <th style='width: 200px'>Deck</th>
+            <th style='width: 70px'>Cards</th>
+            <th style='width: 70px'>Saves</th>
+        </tr>
+        <% @user.saves.each do |save| %>
+            <% deck = Deck.find_by_id(save.deck_id) %>
+            <% if !deck.nil? %>
+                <tr>
+                    <td><%= link_to deck.title, deck %></td>
+                    <td style='text-align: center'><%= deck.cards.length %></td>
+                    <td style='text-align: center'><%= deck.saves %></td>
+                </tr>
+            <% end %>
+        <% end %>
+    </table>
+</div>

@@ -1,54 +1,37 @@
-<h1><%= @deck.title %></h1>
+<%= render 'sidebar' %>
 
-<% if @deck.cards.length == 1 %>
-    <div>1 card</div>
-<% else %>
-    <div><%= @deck.cards.length %> cards</div>
-<% end %>
+<div class='main'>
+    <h1><%= @deck.title %></h1>
 
-<h3>Created by <%= link_to @deck.creator, User.find_by_username(@deck.creator) %></h3>
-
-<div id='description'><%= @deck.description %></div><br>
-
-<%= link_to '<button>Back To All Decks</button>'.html_safe, root_path %><br>
-
-<% if logged_in? %>
-    <% in_user_saves = false %>
-    <% current_user.saves.each do |save| %>
-        <% if save.deck_id == @deck.id %>
-            <% in_user_saves = true %>
-        <% end %>
-    <% end %>
-    <% if in_user_saves %>
-        <%= link_to '<button>Unsave Deck</button>'.html_safe, deck_unsave_path(@deck) %>
+    <% if @deck.cards.length == 1 %>
+        <div>1 card</div>
     <% else %>
-        <%= link_to '<button>Save Deck</button>'.html_safe, deck_save_path(@deck) %>
+        <div><%= @deck.cards.length %> cards</div>
     <% end %>
-<% else %>
-    <div class='greyed-out'>You need to be logged in to save decks.</div>
-<% end %>
 
-<%= link_to '<button>Study Cards</button>'.html_safe, deck_study_path(@deck) %><br>
+    <h3>Created by <%= link_to @deck.creator, User.find_by_username(@deck.creator) %></h3>
 
-<% if logged_in? and current_user.id == @deck.user_id %>
-    <br>
-    <%= link_to '<button>Edit Deck</button>'.html_safe, edit_deck_path(@deck) %>
-    <%= link_to "<button class='delete'>Delete Deck</button>".html_safe, deck_path(@deck),
-        data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %><br>
-<% end %>
+    <div class='description'><%= @deck.description %></div><br>
 
-<h3>Card list:</h3>
-<table>
-    <tr>
-        <th style='width: 40px; border: none'></th>
-        <th style='width:150px'>Front</th>
-        <th style='width:150px'>Back</th>
-    </tr>
-    <% @deck.cards.each_with_index do |card, i| %>
+    <% if logged_in? %>
+        <%= render 'logged_in_show', deck: @deck %>
+    <% else %>
+        <%= render 'logged_out_show', deck: @deck %>
+    <% end %>
+
+    <h3>Card list:</h3>
+    <table>
         <tr>
-            <td style='text-align: center'><%= i + 1 %></td>
-            <td><%= card.front %></td>
-            <td><%= card.back %></td>
+            <th style='width: 40px; border: none'></th>
+            <th style='width:150px'>Front</th>
+            <th style='width:150px'>Back</th>
         </tr>
-    <% end %>
-</table>
+        <% @deck.cards.each_with_index do |card, i| %>
+            <tr>
+                <td style='text-align: center'><%= i + 1 %></td>
+                <td><%= card.front %></td>
+                <td><%= card.back %></td>
+            </tr>
+        <% end %>
+    </table>
+</div>

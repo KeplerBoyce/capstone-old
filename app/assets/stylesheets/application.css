@@ -1,12 +1,8 @@
 /* general */
 body {
     font-family: Arial, Helvetica, sans-serif;
-    position: relative;
-    width: 800px;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 8px;
     box-sizing: border-box;
+    padding: 0 max(24px, calc((100% - 800px) / 2));
 }
 h1, h2, h3 {
     color: #557e4b;
@@ -14,14 +10,24 @@ h1, h2, h3 {
 h2, h3 {
     margin: 8px 0;
 }
+div.login-logout {
+    position: relative;
+    right: 0;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+span.username {
+    margin: 0 6px 0 4px;
+}
 div.field_with_errors {
     display: inline;
 }
-div#error-list {
+div.error-list {
     margin: 12px 4px;
 }
-div#description {
-    color: #6895aa;
+div.description {
+    color: #698091;
     font-size: 18px;
 }
 
@@ -57,14 +63,18 @@ button.delete:hover {
     background-color: #b44f4f;
     transition-duration: 150ms;
 }
+button.delete:active {
+    background-color: #a04444;
+    transition-duration: 150ms;
+}
 button.greyed-out {
     padding: 8px 12px;
     border-radius: 6px;
-    background-color: #c5c5c5;
-    color: #444;
+    background-color: #eee;
+    color: #aaa;
 }
 button.greyed-out:hover {
-    background-color: #bbb;
+    background-color: #e6e6e6;
 }
 button.card {
     width: 120px;
