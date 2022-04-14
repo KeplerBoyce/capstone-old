@@ -1,6 +1,15 @@
+<style>
+    .sidebar-item#created {
+        color: #a55a8e;
+        background-color: #c0c6c9;
+    }
+</style>
+
 <%= render 'decks/sidebar' %>
 
 <div class='main'>
+    <%= render 'decks/login_logout' %>
+
     <h1><%= link_to @user.username, @user %>'s decks</h1>
 
     <table>

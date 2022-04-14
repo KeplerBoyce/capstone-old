@@ -1,0 +1,9 @@
+<div class='login-logout'>
+    <% if logged_in? %>
+        Logged in as
+        <span class='username'><%= link_to current_user.username, current_user %></span>
+        <%= link_to '<button>Log Out</button>'.html_safe, '/logout' %>
+    <% else %>
+        <%= link_to '<button>Log In</button>'.html_safe, '/login' %>
+    <% end %>
+</div>

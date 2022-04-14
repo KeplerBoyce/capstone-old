@@ -1,11 +1,24 @@
+<style>
+    .sidebar-item#top {
+        color: #a55a8e;
+        background-color: #c0c6c9;
+    }
+</style>
+
 <%= render 'sidebar' %>
 
 <div class='main'>
-    <% if logged_in? %>
-        <%= render 'logged_in_index' %>
-    <% else %>
-        <%= render 'logged_out_index' %>
-    <% end %>
+    <%= render 'login_logout' %>
+
+    <h1>Decks</h1>
+    
+    <div style='margin: 8px 0'>
+        <% if logged_in? %>
+            <%= link_to "<button id='new-deck'>New Deck</button>".html_safe, new_deck_path %>
+        <% else %>
+            <button class='greyed-out' id='new-deck'>You must be logged in to create a new deck.</button>
+        <% end %>
+    </div>
 
     <table>
         <tr>
